@@ -1,4 +1,7 @@
-﻿
+﻿// ---- C# II (Dor Ben Dor) ----
+//         Amit Breiman
+// -----------------------------
+
 namespace InterC_ForGames
 {
     sealed class Paladin : MartialUnit // A martial unit with high damage

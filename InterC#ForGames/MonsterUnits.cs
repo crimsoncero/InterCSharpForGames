@@ -1,4 +1,7 @@
-﻿
+﻿// ---- C# II (Dor Ben Dor) ----
+//         Amit Breiman
+// -----------------------------
+
 namespace InterC_ForGames
 {
     sealed class WereBear : MartialUnit // A Big Chonky Tank, spell attacks bypass armor, apart from nature spells.

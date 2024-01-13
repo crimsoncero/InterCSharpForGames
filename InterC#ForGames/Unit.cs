@@ -1,4 +1,8 @@
-﻿namespace InterC_ForGames
+﻿// ---- C# II (Dor Ben Dor) ----
+//         Amit Breiman
+// -----------------------------
+
+namespace InterC_ForGames
 {
     enum Race
     {

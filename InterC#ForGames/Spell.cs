@@ -1,4 +1,7 @@
-﻿
+﻿// ---- C# II (Dor Ben Dor) ----
+//         Amit Breiman
+// -----------------------------
+
 namespace InterC_ForGames
 {
     enum Element
