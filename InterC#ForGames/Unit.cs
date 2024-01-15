@@ -13,9 +13,9 @@ namespace InterC_ForGames
     abstract class Unit
     {
 
-        public virtual int Damage { get; protected set; }
-        public virtual int HP { get; protected set; }
-        public virtual Race Race { get; protected set; }
+        public int Damage { get; protected set; }
+        public int HP { get; protected set; }
+        public Race Race { get; protected set; }
 
         
         public Unit(int damage, int hp, Race race)
