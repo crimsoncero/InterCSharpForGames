@@ -5,11 +5,9 @@
         public static void Main(String[] args)
         {
 
-            Unit u1 = new ShadowPriest();
-            Unit u2 = new WereBear();
-
-
-            u1.Attack(u2);
+            Dice d = new Dice(3, 8, -12);
+            int hash = d.GetHashCode();
+            Console.WriteLine($"{d} Hashcode is : {hash}");
 
 
         }
