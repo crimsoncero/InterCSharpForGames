@@ -29,6 +29,8 @@ namespace InterC_ForGames
             return sum;
         }
 
+       
+
         public override string ToString()
         {
             return $"{Scalar}d{BaseDie}{(Modifier < 0 ? "" : "+")}{Modifier}"; // Prints the Dice in a format like 3d6+0 (Scalar = 3, BaseDie = 6, Modifier = 0).
@@ -57,13 +59,7 @@ namespace InterC_ForGames
         }
         public override int GetHashCode()
         {
-            // Assuming reasonable range of Base Die to be between 1 and 100, and reasonable amount of dice thrown at once to be up to 100.
-
-
-            int modBaseDie = ((int)BaseDie % 100);
-            int modScalar = ((int)Scalar % 100) * 1_000;
-            int modModifier = Math.Abs(Modifier % 1_000) * 10_000_000;
-            return (modBaseDie + modScalar + modModifier) * (Modifier < 0 ? -1 : 1);
+            return (int)((Scalar << 16) ^ (BaseDie << 8) ^ Modifier);
         }
     }
 }

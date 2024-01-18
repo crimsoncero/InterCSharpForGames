@@ -25,7 +25,7 @@ namespace InterC_ForGames
 
     sealed class Mage : CasterUnit // Just a really powerful old wizard.
     {
-        public Mage() : base(6, Race.Human, new IceSpike(7)) { }
+        public Mage() : base(6, Race.Human, new IceSpike()) { }
 
     }
 

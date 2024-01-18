@@ -19,12 +19,27 @@ namespace InterC_ForGames
 
     sealed class Pyromancer : CasterUnit // A hot caster that fires two spells at once.
     {
-        public Pyromancer() : base(8, Race.Elf, new PhoenixFlames(4)) { }
+        public Pyromancer() : base(8, Race.Elf, new PhoenixFlames()) { }
 
         public override void Attack(Unit defender)
         {
             base.Attack(defender);
+
+            // Doesn't attack twice if weather is cold.
+            if(CurrentWeather != Weather.Rain && CurrentWeather != Weather.Hail)
             base.Attack(defender);
+
+            // If the weather is hot, attacks twice more.
+            if(CurrentWeather == Weather.Heatwave)
+            {
+                base.Attack(defender);
+                base.Attack(defender);
+            }
+        }
+
+        protected override void WeatherEffect(Weather weather)
+        {
+            base.WeatherEffect(weather);
         }
     }
 

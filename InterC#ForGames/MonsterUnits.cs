@@ -43,7 +43,7 @@ namespace InterC_ForGames
 
     sealed class ShadowPriest : CasterUnit // Has 10% to chain attacks, forever...
     {
-        public ShadowPriest() : base(10,Race.Monster, new MindSpike(3)) { }
+        public ShadowPriest() : base(10,Race.Monster, new MindSpike()) { }
 
         public override void Attack(Unit defender)
         {

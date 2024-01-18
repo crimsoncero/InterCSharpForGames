@@ -10,19 +10,35 @@ namespace InterC_ForGames
         Elf,
         Monster,
     }
+
+    enum Weather
+    {
+        Clear,
+        Heatwave,
+        Rain,
+        ManaStorm,
+        Hail,
+    }
+
+
     abstract class Unit
     {
 
-        public int Damage { get; protected set; }
+        public Dice Damage { get; protected set; }
         public int HP { get; protected set; }
+        public int CarryingCapacity { get; protected set; }
+        public Dice HitChance { get; protected set; }
+        public Dice DefenseRating { get; protected set; }
         public Race Race { get; protected set; }
+        public Weather CurrentWeather { get; protected set; }
 
         
-        public Unit(int damage, int hp, Race race)
+        public Unit(Dice damage, int hp, Race race)
         {
             Damage = damage;
             HP = hp;
             Race = race;
+            CurrentWeather = Weather.Clear;
         }
 
         public virtual void Attack(Unit defender)
@@ -31,7 +47,11 @@ namespace InterC_ForGames
         }
         public virtual void Defend(Unit attacker)
         {
-            ApplyDamage(attacker.Damage);
+            ApplyDamage(attacker.Damage.Roll());
+        }
+        protected virtual void WeatherEffect(Weather weather)
+        {
+            CurrentWeather = weather;
         }
 
         protected void ApplyDamage(int damage)
@@ -39,6 +59,7 @@ namespace InterC_ForGames
             HP -= damage;
             if (HP < 0) HP = 0;
         }
+
 
     }
 
@@ -63,14 +84,14 @@ namespace InterC_ForGames
     {
         public virtual int Armor { get; protected set; }
 
-        public MartialUnit(int damage, int hp, Race race, int armor) : base(damage, hp, race)
+        public MartialUnit(Dice damage, int hp, Race race, int armor) : base(damage, hp, race)
         {
             Armor = armor;
         }
 
         public override void Defend(Unit attacker)
         {
-            int finalDamage = attacker.Damage - Armor; // Reduces the damage taken by Armor Value
+            int finalDamage = attacker.Damage.Roll() - Armor; // Reduces the damage taken by Armor Value
             if(finalDamage < 0) finalDamage = 0; // Doesn't allow negetive damage values.
             ApplyDamage (finalDamage);
         }

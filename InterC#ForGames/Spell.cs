@@ -16,11 +16,11 @@ namespace InterC_ForGames
     }
     abstract class Spell
     {
-        public virtual string Name { get; protected set; }
-        public virtual int Damage { get; set; }
-        public virtual Element Element { get; protected set; }
+        public string Name { get; protected set; }
+        public Dice Damage { get; protected set; }
+        public Element Element { get; protected set; }
 
-        public Spell(string name,int damage, Element element)
+        public Spell(string name,Dice damage, Element element)
         {
             Name = name;
             Damage = damage;
@@ -29,16 +29,16 @@ namespace InterC_ForGames
     }
     sealed class IceSpike : Spell
     {
-        public IceSpike(int damage) : base("Ice Spike", damage , Element.Frost) { }
+        public IceSpike() : base("Ice Spike", new Dice(2,8,0) , Element.Frost) { }
     }
 
     sealed class PhoenixFlames : Spell
     {
-        public PhoenixFlames(int damage) : base("Phoenix Flames", damage, Element.Fire) { }
+        public PhoenixFlames() : base("Phoenix Flames", new Dice(2,6,0), Element.Fire) { }
     }
 
     sealed class MindSpike : Spell
     {
-        public MindSpike(int damage) : base("Mind Spike", damage, Element.Shadow) { }
+        public MindSpike() : base("Mind Spike", new Dice(2,4,0), Element.Shadow) { }
     }
 }
