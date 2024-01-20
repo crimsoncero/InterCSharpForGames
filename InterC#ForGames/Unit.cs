@@ -14,8 +14,7 @@ namespace InterC_ForGames
     enum Weather
     {
         Clear,
-        Heatwave,
-        Rain,
+        Sunny,
         ManaStorm,
         Hail,
     }
@@ -26,48 +25,71 @@ namespace InterC_ForGames
 
         public Dice Damage { get; protected set; }
         public int HP { get; protected set; }
+        public Race Race { get; protected set; }
         public int CarryingCapacity { get; protected set; }
         public Dice HitChance { get; protected set; }
         public Dice DefenseRating { get; protected set; }
-        public Race Race { get; protected set; }
+        public int Speed { get; protected set; }
         public Weather CurrentWeather { get; protected set; }
 
-        
-        public Unit(Dice damage, int hp, Race race)
+        public bool IsDead { get { return HP <= 0; } }
+
+
+        public Unit(Dice damage, int hp, Race race, int carryingCapacity, Dice hitChance, Dice defenseRating, int speed)
         {
             Damage = damage;
             HP = hp;
             Race = race;
+            CarryingCapacity = carryingCapacity;
+            HitChance = hitChance;
+            DefenseRating = defenseRating;
+            Speed = speed;
             CurrentWeather = Weather.Clear;
+
         }
 
         public virtual void Attack(Unit defender)
         {
-            defender.Defend(this);
+            int hitRoll = HitChance.Roll();
+            defender.Defend(this, hitRoll);
         }
-        public virtual void Defend(Unit attacker)
+
+        public virtual void Defend(Unit attacker, int hitRoll)
         {
-            ApplyDamage(attacker.Damage.Roll());
+            if(hitRoll < DefenseRating.Roll())
+            {
+                // Defend action
+            }
+            else
+            {
+                // Get hit action
+                ApplyDamage(attacker.Damage.Roll());
+            }
         }
+
         protected virtual void WeatherEffect(Weather weather)
         {
             CurrentWeather = weather;
         }
 
-        protected void ApplyDamage(int damage)
+        protected virtual void ApplyDamage(int damage)
         {
             HP -= damage;
             if (HP < 0) HP = 0;
         }
 
-
+        public override string ToString()
+        {
+            return $"{Race} {GetType().Name}";
+        }
     }
 
     abstract class CasterUnit : Unit
     {
         public virtual Spell Spell { get; protected set; }
 
-        public CasterUnit (int hp, Race race, Spell spell) : base (spell.Damage,hp, race)
+        public CasterUnit (int hp, Race race, Spell spell,int carryingCapacity, Dice hitChance, Dice defenseRating, int speed) : 
+            base (spell.Damage,hp, race, carryingCapacity, hitChance, defenseRating, speed )
         {
             Spell = spell;
         }
@@ -77,6 +99,18 @@ namespace InterC_ForGames
             Console.WriteLine($"Casting {Spell.Name}!");
             base.Attack(defender);
         }
+
+        protected override void WeatherEffect(Weather weather)
+        {
+            base.WeatherEffect(weather);
+
+            // Every turn in a manastorm, a caster spell gets a permanent +1 to its damage roll. 
+            if(weather == Weather.ManaStorm)
+            {
+                Damage = Damage.AddModifier(1);
+            }
+        }
+
     }
 
 
@@ -84,18 +118,19 @@ namespace InterC_ForGames
     {
         public virtual int Armor { get; protected set; }
 
-        public MartialUnit(Dice damage, int hp, Race race, int armor) : base(damage, hp, race)
+        public MartialUnit(Dice damage, int hp, Race race, int armor, int carryingCapacity, Dice hitChance, Dice defenseRating, int speed) :
+            base(damage, hp, race, carryingCapacity, hitChance, defenseRating, speed)
         {
             Armor = armor;
         }
 
-        public override void Defend(Unit attacker)
+        protected override void ApplyDamage(int damage)
         {
-            int finalDamage = attacker.Damage.Roll() - Armor; // Reduces the damage taken by Armor Value
-            if(finalDamage < 0) finalDamage = 0; // Doesn't allow negetive damage values.
-            ApplyDamage (finalDamage);
+            int finalDamage = damage - Armor; // Reduces the damage taken by Armor Value
+            if (finalDamage < 0) finalDamage = 0; // Doesn't allow negetive damage values.
+            base.ApplyDamage(damage);
         }
-
+      
     }
 
 }

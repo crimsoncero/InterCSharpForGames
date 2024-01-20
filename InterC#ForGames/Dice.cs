@@ -1,5 +1,7 @@
-﻿
-using System.Data.Common;
+﻿// ---- C# II (Dor Ben Dor) ----
+//         Amit Breiman
+// -----------------------------
+
 using System.Diagnostics.CodeAnalysis;
 
 namespace InterC_ForGames
@@ -29,7 +31,24 @@ namespace InterC_ForGames
             return sum;
         }
 
-       
+        /// <summary>
+        /// Returns a Dice that has x more to its modifier.
+        /// </summary>
+        /// <param name="modifier"></param>
+        /// <returns></returns>
+       public Dice AddModifier(int x)
+        {
+            return new Dice(Scalar, BaseDie, Modifier + x);
+        }
+
+        /// <summary>
+        /// Returns the maximum roll result.
+        /// </summary>
+        /// <returns></returns>
+        public int MaxRoll()
+        {
+            return (int)Scalar * (int)BaseDie + Modifier;
+        }
 
         public override string ToString()
         {

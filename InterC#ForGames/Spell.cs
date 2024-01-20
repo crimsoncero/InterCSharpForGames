@@ -27,14 +27,14 @@ namespace InterC_ForGames
             Element = element;
         }
     }
-    sealed class IceSpike : Spell
+    sealed class GlacialSpike : Spell
     {
-        public IceSpike() : base("Ice Spike", new Dice(2,8,0) , Element.Frost) { }
+        public GlacialSpike() : base("Ice Spike", new Dice(3,10,0) , Element.Frost) { }
     }
 
     sealed class PhoenixFlames : Spell
     {
-        public PhoenixFlames() : base("Phoenix Flames", new Dice(2,6,0), Element.Fire) { }
+        public PhoenixFlames() : base("Phoenix Flames", new Dice(2,8,3), Element.Fire) { }
     }
 
     sealed class MindSpike : Spell
