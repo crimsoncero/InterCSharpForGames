@@ -6,7 +6,7 @@ namespace InterC_ForGames
 {
     sealed class SpellBreaker : MartialUnit // A tank that specializes against Casters, when attacking a caster unit performs a double attack.
     {
-        private int _casterDefense = 2;
+        private int  _casterDefense = 2;
 
         public SpellBreaker() : base(new Dice(2, 4, 1), 22, Race.Elf, 4, 4,
             new Dice(2, 10, 2), new Dice(2,10, 3), 2) { }
