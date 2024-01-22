@@ -53,7 +53,7 @@ namespace InterC_ForGames
 
             if (hitRoll < defenseRoll)
             {
-                Console.WriteLine($"{this} thorny armor retailiates");
+                Console.WriteLine($"{this} thorny armor retailiates, is that what he bought from the AH?");
                 // Defend action - thorn damage
                 base.Attack(attacker);
 

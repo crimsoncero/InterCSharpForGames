@@ -10,33 +10,41 @@ namespace InterC_ForGames
         {
 
             Console.WriteLine("-------Actor 1 vs Actor 2-------");
-            Console.WriteLine($"Actor 1 Units are: {a1.ToStringUnitList()}and they have {a1.Resources} Resources.");
-            Console.WriteLine($"Actor 2 Units are: {a2.ToStringUnitList()}and they have {a2.Resources} Resources.");
-            Console.WriteLine("------------------------------------------------------------------------------------------------");
+           
 
-
-            Console.WriteLine("-----Turn 1------");
-
-            int u1Index = a1.ChooseRandomUnitIndex();
-            int u2Index = a2.ChooseRandomUnitIndex();
-            Unit u1 = a1.Units[u1Index];
-            Unit u2 = a2.Units[u2Index];
-
-            if (u1.Speed > u2.Speed)
+            while (true)
             {
-                a1.Units[u1Index].Attack(a2.Units[u2Index]);
-                a2.Units[u2Index].Attack(a1.Units[u1Index]);
+                Console.WriteLine($"Actor 1 - {a1}");
+                Console.WriteLine($"Actor 2 - {a2}");
+                Console.WriteLine("------------------------------------------------------------------------------------------------");
+                Console.WriteLine("-----Turn 1------");
+
+                int u1Index = a1.ChooseRandomUnitIndex();
+                int u2Index = a2.ChooseRandomUnitIndex();
+                Unit u1 = a1.Units[u1Index];
+                Unit u2 = a2.Units[u2Index];
+
+                if (u1.Speed > u2.Speed)
+                {
+                    Console.WriteLine($"{u1} is faster than {u2}\n");
+                    Console.WriteLine($"{u1} attacks {u2}");
+                    a1.Units[u1Index].Attack(a2.Units[u2Index]);
+                    Console.WriteLine($"\n{u2} attacks {u1}");
+                    a2.Units[u2Index].Attack(a1.Units[u1Index]);
+                }
+                else
+                {
+                    Console.WriteLine($"{u2} is faster than {u1}\n");
+                    Console.WriteLine($"{u2} attacks {u1}");
+                    a2.Units[u2Index].Attack(a1.Units[u1Index]);
+                    Console.WriteLine($"\n{u1} attacks {u2}");
+                    a1.Units[u1Index].Attack(a2.Units[u2Index]);
+                }
+
+                Console.WriteLine("\n Press any button for next turn...\n");
+                Console.ReadKey(true);
             }
-            else
-            {
-                a2.Units[u2Index].Attack(a1.Units[u1Index]);
-                a1.Units[u1Index].Attack(a2.Units[u2Index]);
-            }
-
-
-
-            Console.WriteLine($"Actor 1 Units are: {a1.ToStringUnitList()}and they have {a1.Resources} Resources.");
-            Console.WriteLine($"Actor 2 Units are: {a2.ToStringUnitList()}and they have {a2.Resources} Resources.");
+           
 
 
         }
@@ -82,6 +90,11 @@ namespace InterC_ForGames
                 str += $"{unit.ToString()}, ";
             }
             return str;
+        }
+
+        public override string ToString()
+        {
+            return $"Units: {ToStringUnitList()}Resources: {Resources}";
         }
         #endregion
 
