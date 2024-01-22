@@ -80,7 +80,7 @@ namespace InterC_ForGames
 
         public override string ToString()
         {
-            return $"{Race} {GetType().Name}";
+            return $"{GetType().Name}[{HP}HP]";
         }
     }
 
@@ -128,6 +128,12 @@ namespace InterC_ForGames
         {
             int finalDamage = damage - Armor; // Reduces the damage taken by Armor Value
             if (finalDamage < 0) finalDamage = 0; // Doesn't allow negetive damage values.
+            base.ApplyDamage(damage);
+        }
+
+
+        protected void ApplyDamageBypassArmor(int damage)
+        {
             base.ApplyDamage(damage);
         }
       

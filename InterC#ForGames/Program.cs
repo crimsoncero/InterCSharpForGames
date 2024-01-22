@@ -5,9 +5,9 @@
         public static void Main(String[] args)
         {
 
-            Unit u = new ShieldKnight();
-
-            Console.WriteLine(u);
+            Actor actor1 = new Actor(Race.Elf, 4, 30);
+            Actor actor2 = new Actor(Race.Human, 4, 30);
+            actor1.Fight(actor2);
 
 
         }
