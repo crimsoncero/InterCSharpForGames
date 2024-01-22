@@ -11,8 +11,12 @@ namespace InterC_ForGames
 
         public override void Defend(Unit attacker, int hitRoll)
         {
-            if (hitRoll < DefenseRating.Roll())
+            int defenseRoll = DefenseRating.Roll();
+            Console.WriteLine($"{attacker} rolled {hitRoll} attack against {this} {defenseRoll} defense");
+
+            if (hitRoll < defenseRoll)
             {
+                Console.WriteLine($"{this} defends the attack.");
                 // Defend action - do nothing
             }
             else
@@ -39,13 +43,17 @@ namespace InterC_ForGames
 
         public override void Attack(Unit defender)
         {
-            Console.WriteLine("He is too busy in the auction house...");
+            Console.WriteLine($"{this} is too busy in the auction house...");
         }
 
         public override void Defend(Unit attacker, int hitRoll)
         {
-            if (hitRoll < DefenseRating.Roll())
+            int defenseRoll = DefenseRating.Roll();
+            Console.WriteLine($"{attacker} rolled {hitRoll} attack against {this} {defenseRoll} defense");
+
+            if (hitRoll < defenseRoll)
             {
+                Console.WriteLine($"{this} thorny armor retailiates");
                 // Defend action - thorn damage
                 base.Attack(attacker);
 
@@ -67,7 +75,7 @@ namespace InterC_ForGames
         public override void Attack(Unit defender)
         {
             base.Attack(defender);
-
+            Console.WriteLine($"{this} attacks once more!");
             if (Random.Shared.Next(10) <= 1) this.Attack(defender);
         }
 

@@ -15,14 +15,21 @@ namespace InterC_ForGames
         {
             base.Attack(defender);
             if (defender is CasterUnit)
+            {
+                Console.WriteLine($"A caster! {this} attacks once more!");
                 base.Attack(defender);
+            }
+             
         }
 
         public override void Defend(Unit attacker, int hitRoll)
         {
-            int casterDefense = attacker is CasterUnit ? _casterDefense : 0;
-            if (hitRoll < HitChance.Roll() + casterDefense)
+
+            int defenseRoll = DefenseRating.Roll() + (attacker is CasterUnit ? _casterDefense : 0);
+            Console.WriteLine($"{attacker} rolled {hitRoll} attack against {this} {defenseRoll} defense");
+            if (hitRoll < defenseRoll)
             {
+                Console.WriteLine($"{this} defends the attack.");
                 // Do nothing;
             }
             else
@@ -43,11 +50,13 @@ namespace InterC_ForGames
 
             // Doesn't attack twice if weather is cold.
             if (CurrentWeather != Weather.Hail)
+                Console.WriteLine($"{this} is hot, and fires another spell!");
                 base.Attack(defender);
 
             // If the weather is hot, attacks once more.
             if (CurrentWeather == Weather.Sunny)
             {
+                Console.WriteLine($"{this} is hotter, and blasts another spell!");
                 base.Attack(defender);
             }
         }

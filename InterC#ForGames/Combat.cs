@@ -4,7 +4,47 @@
 
 namespace InterC_ForGames
 {
-    class Actor
+    static class Combat
+    {
+        public static void Duel(Actor a1, Actor a2)
+        {
+
+            Console.WriteLine("-------Actor 1 vs Actor 2-------");
+            Console.WriteLine($"Actor 1 Units are: {a1.ToStringUnitList()}and they have {a1.Resources} Resources.");
+            Console.WriteLine($"Actor 2 Units are: {a2.ToStringUnitList()}and they have {a2.Resources} Resources.");
+            Console.WriteLine("------------------------------------------------------------------------------------------------");
+
+
+            Console.WriteLine("-----Turn 1------");
+
+            int u1Index = a1.ChooseRandomUnitIndex();
+            int u2Index = a2.ChooseRandomUnitIndex();
+            Unit u1 = a1.Units[u1Index];
+            Unit u2 = a2.Units[u2Index];
+
+            if (u1.Speed > u2.Speed)
+            {
+                a1.Units[u1Index].Attack(a2.Units[u2Index]);
+                a2.Units[u2Index].Attack(a1.Units[u1Index]);
+            }
+            else
+            {
+                a2.Units[u2Index].Attack(a1.Units[u1Index]);
+                a1.Units[u1Index].Attack(a2.Units[u2Index]);
+            }
+
+
+
+            Console.WriteLine($"Actor 1 Units are: {a1.ToStringUnitList()}and they have {a1.Resources} Resources.");
+            Console.WriteLine($"Actor 2 Units are: {a2.ToStringUnitList()}and they have {a2.Resources} Resources.");
+
+
+        }
+    }
+
+
+
+    internal class Actor
     {
         public List<Unit> Units { get; set; }
         public List<int> LiveUnitsIndex { get; set; }
@@ -22,43 +62,7 @@ namespace InterC_ForGames
         }
 
 
-        #region Fight Algorithm Methods
-        public void Fight(Actor other)
-        {
-            Console.WriteLine("-------Actor 1 vs Actor 2-------");
-            Console.WriteLine($"Actor 1 Units are: {this.ToStringUnitList()}and they have {this.Resources} Resources.");
-            Console.WriteLine($"Actor 2 Units are: {other.ToStringUnitList()}and they have {other.Resources} Resources.");
-            Console.WriteLine("------------------------------------------------------------------------------------------------");
-
-
-            Console.WriteLine("-----Turn 1------");
-
-            int u1Index = this.ChooseRandomUnitIndex();
-            int u2Index = other.ChooseRandomUnitIndex();
-            Unit u1 = this.Units[u1Index];
-            Unit u2 = other.Units[u2Index];
-
-            if(u1.Speed > u2.Speed)
-            {
-                this.Units[u1Index].Attack(other.Units[u2Index]);
-                other.Units[u2Index].Attack(this.Units[u1Index]);
-            }
-            else
-            {
-                other.Units[u2Index].Attack(this.Units[u1Index]);
-                this.Units[u1Index].Attack(other.Units[u2Index]);
-            }
-
-
-
-            Console.WriteLine($"Actor 1 Units are: {this.ToStringUnitList()}and they have {this.Resources} Resources.");
-            Console.WriteLine($"Actor 2 Units are: {other.ToStringUnitList()}and they have {other.Resources} Resources.");
-
-
-
-
-        }
-
+        #region Combat Methods
 
         public int ChooseRandomUnitIndex()
         {

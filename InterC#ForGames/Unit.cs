@@ -56,8 +56,12 @@ namespace InterC_ForGames
 
         public virtual void Defend(Unit attacker, int hitRoll)
         {
-            if(hitRoll < DefenseRating.Roll())
+            int defenseRoll = DefenseRating.Roll();
+            Console.WriteLine($"{attacker} rolled {hitRoll} attack against {this} {defenseRoll} defense");
+
+            if (hitRoll < defenseRoll)
             {
+                Console.WriteLine($"{this} defends the attack.");
                 // Defend action
             }
             else
@@ -74,6 +78,7 @@ namespace InterC_ForGames
 
         protected virtual void ApplyDamage(int damage)
         {
+            Console.WriteLine($"{this} took {damage} damage");
             HP -= damage;
             if (HP < 0) HP = 0;
         }
