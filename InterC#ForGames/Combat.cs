@@ -35,9 +35,19 @@ namespace InterC_ForGames
 
             int u1Index = this.ChooseRandomUnitIndex();
             int u2Index = other.ChooseRandomUnitIndex();
+            Unit u1 = this.Units[u1Index];
+            Unit u2 = other.Units[u2Index];
 
-            this.Units[u1Index].Attack(other.Units[u2Index]);
-            other.Units[u2Index].Attack(this.Units[u1Index]);
+            if(u1.Speed > u2.Speed)
+            {
+                this.Units[u1Index].Attack(other.Units[u2Index]);
+                other.Units[u2Index].Attack(this.Units[u1Index]);
+            }
+            else
+            {
+                other.Units[u2Index].Attack(this.Units[u1Index]);
+                this.Units[u1Index].Attack(other.Units[u2Index]);
+            }
 
 
 
