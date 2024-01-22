@@ -32,7 +32,7 @@ namespace InterC_ForGames
         public int Speed { get; protected set; }
         public Weather CurrentWeather { get; protected set; }
 
-        public bool IsDead { get { return HP <= 0; } }
+        public bool IsDead => (HP <= 0);
 
 
         public Unit(Dice damage, int hp, Race race, int carryingCapacity, Dice hitChance, Dice defenseRating, int speed)
@@ -71,7 +71,7 @@ namespace InterC_ForGames
             }
         }
 
-        protected virtual void WeatherEffect(Weather weather)
+        public virtual void WeatherEffect(Weather weather)
         {
             CurrentWeather = weather;
         }
@@ -105,7 +105,7 @@ namespace InterC_ForGames
             base.Attack(defender);
         }
 
-        protected override void WeatherEffect(Weather weather)
+        public override void WeatherEffect(Weather weather)
         {
             base.WeatherEffect(weather);
 

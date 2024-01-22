@@ -6,18 +6,39 @@ namespace InterC_ForGames
 {
     static class Combat
     {
+        private const int _weatherBaseDuration = 3; // How long the weather duration is. 
+
         public static void Duel(Actor a1, Actor a2)
         {
-
+            Weather weather = Weather.Clear;
+            int weatherDuration = 0;
             Console.WriteLine("-------Actor 1 vs Actor 2-------");
            
 
             while (true)
             {
+                
                 Console.WriteLine($"Actor 1 - {a1}");
                 Console.WriteLine($"Actor 2 - {a2}");
                 Console.WriteLine("------------------------------------------------------------------------------------------------");
                 Console.WriteLine("-----Turn 1------");
+
+                if (weatherDuration == 0)
+                {
+                    weather = RandomWeather();
+                    weatherDuration = _weatherBaseDuration;
+                    Console.WriteLine($"The weather changed to {weather}!");
+                }
+                else
+                {
+                    Console.WriteLine($"The weather is {weather}.");
+                    weatherDuration--;
+                }
+                
+                foreach(Unit u in Enumerable.Concat(a1.Units, a2.Units))
+                {
+                    u.WeatherEffect(weather);
+                }
 
                 int u1Index = a1.ChooseRandomUnitIndex();
                 int u2Index = a2.ChooseRandomUnitIndex();
@@ -47,6 +68,12 @@ namespace InterC_ForGames
            
 
 
+        }
+
+        private static Weather RandomWeather()
+        {
+            Array values = Enum.GetValues(typeof(Weather));
+            return (Weather)values.GetValue(Random.Shared.Next(values.Length));
         }
     }
 

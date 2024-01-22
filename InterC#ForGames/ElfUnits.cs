@@ -61,7 +61,7 @@ namespace InterC_ForGames
             }
         }
 
-        protected override void WeatherEffect(Weather weather)
+        public override void WeatherEffect(Weather weather)
         {
             base.WeatherEffect(weather);
         }
