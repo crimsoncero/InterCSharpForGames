@@ -6,8 +6,8 @@
         {
 
 
-            Actor actor1 = new Actor("Bob",Race.Elf, 4, 30);
-            Actor actor2 = new Actor("Mark",Race.Human, 4, 30);
+            Actor actor1 = new Actor("Bob",Race.Elf, 4, 10);
+            Actor actor2 = new Actor("Mark",Race.Human, 4, 10);
             Combat.Duel(actor1, actor2);
 
 

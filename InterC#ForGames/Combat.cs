@@ -9,7 +9,7 @@ namespace InterC_ForGames
     static class Combat
     {
         private const int _weatherBaseDuration = 3; // How long the weather duration is. 
-        private const int _weatherChangeChance = 33; // out of 100.
+        private const int _weatherChangeChance = 25; // out of 100.
         public static void Duel(Actor a1, Actor a2)
         {
             Weather weather = Weather.Clear;
