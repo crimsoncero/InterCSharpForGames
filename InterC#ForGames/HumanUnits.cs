@@ -45,7 +45,7 @@ namespace InterC_ForGames
 
         public override void Attack(Unit defender)
         {
-            int hitRoll = CurrentWeather == Weather.Hail? HitChance.Roll() : HitChance.Roll();
+            int hitRoll = CurrentWeather == Weather.Hail? HitChance.MaxRoll() : HitChance.Roll();
             defender.Defend(this, hitRoll);
         }
     }

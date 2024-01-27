@@ -2,8 +2,6 @@
 //         Amit Breiman
 // -----------------------------
 
-using System;
-
 namespace InterC_ForGames
 {
     static class Combat
@@ -27,7 +25,7 @@ namespace InterC_ForGames
 
 
                 // Weather handling.
-                if (HasWeatherChange())
+                if (HasWeatherChanged())
                 {
                     weather = RandomWeather();
                     weatherDuration = _weatherBaseDuration;
@@ -35,7 +33,7 @@ namespace InterC_ForGames
                 }
                 else if (weatherDuration == 0)
                 {
-                    Console.WriteLine($"The {weather} calmed down.");
+                    Console.WriteLine($"The {weather} weather calmed down.");
                     weather = Weather.Clear; // returns to clear weather.
                     weatherDuration = -1; //Infinite duration, until weather changes.
                 }
@@ -161,7 +159,7 @@ namespace InterC_ForGames
         }
     
 
-        private static bool HasWeatherChange()
+        private static bool HasWeatherChanged()
         {
             if (Random.Shared.Next(100) < _weatherChangeChance)
                 return true;
@@ -196,7 +194,15 @@ namespace InterC_ForGames
 
         }
 
+        public Actor(string name, Race race, int numOfUnits, (int,int) resourcesRange)
+        {
+            Name = name;
+            Race = race;
+            Resources = Random.Shared.Next(resourcesRange.Item1, resourcesRange.Item2);
+            LiveUnitsIndex = new List<int>();
+            Units = AssignRandomUnits(numOfUnits);
 
+        }
 
 
         #region Combat Methods
