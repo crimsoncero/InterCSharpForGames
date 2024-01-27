@@ -26,7 +26,7 @@ namespace InterC_ForGames
         public Dice Damage { get; protected set; }
         public int HP { get; protected set; }
         public Race Race { get; protected set; }
-        public int CarryingCapacity { get; protected set; }
+        public int CarryingCapacity { get; protected set; } // How many resources the unit can take after defeating an opponent unit.
         public Dice HitChance { get; protected set; }
         public Dice DefenseRating { get; protected set; }
         public int Speed { get; protected set; }

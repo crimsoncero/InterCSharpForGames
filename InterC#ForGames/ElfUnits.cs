@@ -60,11 +60,6 @@ namespace InterC_ForGames
                 base.Attack(defender);
             }
         }
-
-        public override void WeatherEffect(Weather weather)
-        {
-            base.WeatherEffect(weather);
-        }
     }
 
     sealed class Ranger : MartialUnit // An archer unit that has high damage, and low armor

@@ -75,8 +75,12 @@ namespace InterC_ForGames
         public override void Attack(Unit defender)
         {
             base.Attack(defender);
-            Console.WriteLine($"{this} attacks once more!");
-            if (Random.Shared.Next(10) <= 1) this.Attack(defender);
+
+            if (Random.Shared.Next(10) <= 1)
+            {
+                Console.WriteLine($"{this} attacks once more!");
+                this.Attack(defender);
+            }
         }
 
     }
