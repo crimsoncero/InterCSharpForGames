@@ -19,7 +19,7 @@ namespace InterC_ForGames
 
         public override void Defend(Unit attacker, int hitRoll)
         {
-            int defenseRoll = DefenseRating.Roll();
+            int defenseRoll = DefenseRating.GetNumber();
             Console.WriteLine($"{attacker} rolled {hitRoll} attack against {this} {defenseRoll} defense");
 
             if (hitRoll < defenseRoll)
@@ -30,9 +30,9 @@ namespace InterC_ForGames
             else
             {
                 if (attacker is CasterUnit)
-                    ApplyDamage(attacker.Damage.Roll());
+                    ApplyDamage(attacker.Damage.GetNumber());
                 else
-                    ApplyDamage(attacker.Damage.Roll() / 2);
+                    ApplyDamage(attacker.Damage.GetNumber() / 2);
             }
         }
     }
@@ -45,7 +45,7 @@ namespace InterC_ForGames
 
         public override void Attack(Unit defender)
         {
-            int hitRoll = CurrentWeather == Weather.Hail? HitChance.MaxRoll() : HitChance.Roll();
+            int hitRoll = CurrentWeather == Weather.Hail? ((Dice)HitChance).MaxRoll() : HitChance.GetNumber();
             defender.Defend(this, hitRoll);
         }
     }

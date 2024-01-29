@@ -11,7 +11,7 @@ namespace InterC_ForGames
 
         public override void Defend(Unit attacker, int hitRoll)
         {
-            int defenseRoll = DefenseRating.Roll();
+            int defenseRoll = DefenseRating.GetNumber();
             Console.WriteLine($"{attacker} rolled {hitRoll} attack against {this} {defenseRoll} defense");
 
             if (hitRoll < defenseRoll)
@@ -25,11 +25,11 @@ namespace InterC_ForGames
                 {
                     CasterUnit casterAttacker = (CasterUnit)attacker;
                     if (casterAttacker.Spell.Element != Element.Nature)
-                        ApplyDamageBypassArmor(casterAttacker.Damage.Roll());
+                        ApplyDamageBypassArmor(casterAttacker.Damage.GetNumber());
                 }
                 else
                 {
-                    ApplyDamage(attacker.Damage.Roll());
+                    ApplyDamage(attacker.Damage.GetNumber());
                 }
             }
         }
@@ -38,17 +38,19 @@ namespace InterC_ForGames
 
     sealed class PacifistGoblin : MartialUnit
     {
-        public PacifistGoblin() : base(damage: new Dice(1,4,1), hp: 15, race: Race.Monster, armor: 10, carryingCapacity: 7,
+
+        public PacifistGoblin() : base(damage: new Bag(new int[6] {2,3,5,7,11,13}), hp: 15, race: Race.Monster, armor: 10, carryingCapacity: 7,
             hitChance: new Dice(1,1,30), defenseRating: new Dice(1,10,0), speed: 1) { }
 
         public override void Attack(Unit defender)
         {
-            Console.WriteLine($"{this} is too busy in the auction house...");
+            Console.WriteLine($"{this} has bought a bunch of prime weaponery...");
+            base.Attack(defender);
         }
 
         public override void Defend(Unit attacker, int hitRoll)
         {
-            int defenseRoll = DefenseRating.Roll();
+            int defenseRoll = DefenseRating.GetNumber();
             Console.WriteLine($"{attacker} rolled {hitRoll} attack against {this} {defenseRoll} defense");
 
             if (hitRoll < defenseRoll)
@@ -60,7 +62,7 @@ namespace InterC_ForGames
             }
             else
             {
-              ApplyDamage(attacker.Damage.Roll());
+              ApplyDamage(attacker.Damage.GetNumber());
             }
             
         }

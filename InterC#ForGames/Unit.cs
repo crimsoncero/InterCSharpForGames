@@ -21,19 +21,20 @@ namespace InterC_ForGames
     abstract class Unit
     {
 
-        public Dice Damage { get; protected set; }
+        public virtual IRandomProvider Damage { get; protected set; }
         public int HP { get; protected set; }
-        public Race Race { get; protected set; }
+        public Race Race { get; init; }
         public int Speed { get; protected set; }
         public int CarryingCapacity { get; protected set; } // How many resources the unit can take after defeating an opponent unit.
-        protected Dice HitChance { get;  set; }
-        protected Dice DefenseRating { get;  set; }
+        protected IRandomProvider HitChance { get;  set; }
+        protected IRandomProvider DefenseRating { get;  set; }
         protected Weather CurrentWeather { get;  set; }
 
         public bool IsDead => (HP <= 0);
 
 
-        public Unit(Dice damage, int hp, Race race, int carryingCapacity, Dice hitChance, Dice defenseRating, int speed)
+        public Unit(IRandomProvider damage, int hp, Race race, int carryingCapacity, 
+            IRandomProvider hitChance, IRandomProvider defenseRating, int speed)
         {
             Damage = damage;
             HP = hp;
@@ -48,13 +49,13 @@ namespace InterC_ForGames
 
         public virtual void Attack(Unit defender)
         {
-            int hitRoll = HitChance.Roll();
+            int hitRoll = HitChance.GetNumber();
             defender.Defend(this, hitRoll);
         }
 
         public virtual void Defend(Unit attacker, int hitRoll)
         {
-            int defenseRoll = DefenseRating.Roll();
+            int defenseRoll = DefenseRating.GetNumber();
             Console.WriteLine($"{attacker} rolled {hitRoll} attack against {this} {defenseRoll} defense");
 
             if (hitRoll < defenseRoll)
@@ -65,7 +66,7 @@ namespace InterC_ForGames
             else
             {
                 // Get hit action
-                ApplyDamage(attacker.Damage.Roll());
+                ApplyDamage(attacker.Damage.GetNumber());
             }
         }
 
@@ -91,7 +92,8 @@ namespace InterC_ForGames
     {
         public virtual Spell Spell { get; protected set; }
 
-        public CasterUnit (int hp, Race race, Spell spell,int carryingCapacity, Dice hitChance, Dice defenseRating, int speed) : 
+        public CasterUnit (int hp, Race race, Spell spell,int carryingCapacity, 
+            IRandomProvider hitChance, IRandomProvider defenseRating, int speed) : 
             base (spell.Damage,hp, race, carryingCapacity, hitChance, defenseRating, speed )
         {
             Spell = spell;
@@ -110,7 +112,7 @@ namespace InterC_ForGames
             // Every turn in a manastorm, a caster spell gets a permanent +1 to its damage roll. 
             if(weather == Weather.ManaStorm)
             {
-                Damage = Damage.AddModifier(1);
+                //Damage = Damage.AddModifier(1);
             }
         }
 
@@ -121,7 +123,8 @@ namespace InterC_ForGames
     {
         public virtual int Armor { get; protected set; }
 
-        public MartialUnit(Dice damage, int hp, Race race, int armor, int carryingCapacity, Dice hitChance, Dice defenseRating, int speed) :
+        public MartialUnit(IRandomProvider damage, int hp, Race race, int armor, int carryingCapacity, 
+            IRandomProvider hitChance, IRandomProvider defenseRating, int speed) :
             base(damage, hp, race, carryingCapacity, hitChance, defenseRating, speed)
         {
             Armor = armor;

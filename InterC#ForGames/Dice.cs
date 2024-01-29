@@ -1,12 +1,10 @@
-﻿// ---- C# II (Dor Ben Dor) ----
-//         Amit Breiman
-// -----------------------------
+﻿
 
 using System.Diagnostics.CodeAnalysis;
 
 namespace InterC_ForGames
 {
-    readonly struct Dice
+    readonly struct Dice : IRandomProvider
     {
         public readonly uint Scalar;
         public readonly uint BaseDie;
@@ -19,7 +17,7 @@ namespace InterC_ForGames
             Modifier = modifier;
         }
 
-        public int Roll()
+        public int GetNumber()
         {
             int sum = Modifier;
 

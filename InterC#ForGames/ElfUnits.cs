@@ -24,7 +24,7 @@ namespace InterC_ForGames
         public override void Defend(Unit attacker, int hitRoll)
         {
 
-            int defenseRoll = DefenseRating.Roll() + (attacker is CasterUnit ? _casterDefense : 0);
+            int defenseRoll = DefenseRating.GetNumber() + (attacker is CasterUnit ? _casterDefense : 0);
             Console.WriteLine($"{attacker} rolled {hitRoll} attack against {this} {defenseRoll} defense");
             if (hitRoll < defenseRoll)
             {
@@ -33,7 +33,7 @@ namespace InterC_ForGames
             }
             else
             {
-                ApplyDamage(attacker.Damage.Roll());
+                ApplyDamage(attacker.Damage.GetNumber());
             }
         }
     }
