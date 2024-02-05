@@ -2,6 +2,7 @@
 //         Amit Breiman
 // -----------------------------
 
+    
 namespace InterC_ForGames
 {
     static class Combat
@@ -93,6 +94,7 @@ namespace InterC_ForGames
 
                 // Advance to next turn.
                 turnNumber++;
+
                 Console.WriteLine("\n Press any button to continue...\n");
                 Console.ReadKey(true);
             }
@@ -205,7 +207,7 @@ namespace InterC_ForGames
         }
 
 
-        #region Combat Methods
+#region Combat Methods
 
         public void UnitDied(int unitIndex)
         {
@@ -236,9 +238,9 @@ namespace InterC_ForGames
         {
             return $"{Name}'s Units: {ToStringUnitList()}Resources: {Resources}";
         }
-        #endregion
+#endregion
 
-        #region Unit List Creation Methods
+#region Unit List Creation Methods
         private List<Unit> AssignRandomUnits(int numOfUnits)
         {
             List<Unit> units = new List<Unit>();
@@ -305,6 +307,6 @@ namespace InterC_ForGames
                     return new WereBear();
             }
         }
-        #endregion
+#endregion
     }
 }
