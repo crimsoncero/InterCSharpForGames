@@ -109,10 +109,13 @@ namespace InterC_ForGames
         {
             base.WeatherEffect(weather);
 
-            // Every turn in a manastorm, a caster spell gets a permanent +1 to its damage roll. 
+            // Every turn in a manastorm, a caster loads their highest damage value to their spell Damage Bag. 
             if(weather == Weather.ManaStorm)
             {
-                //Damage = Damage.AddModifier(1);
+                if(Damage is Bag bagDamage)
+                {
+                    bagDamage.Load(bagDamage.FindMaxValue());
+                }
             }
         }
 

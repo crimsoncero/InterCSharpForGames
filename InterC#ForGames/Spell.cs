@@ -17,10 +17,10 @@ namespace InterC_ForGames
     abstract class Spell
     {
         public string Name { get; protected set; }
-        public Dice Damage { get; protected set; }
+        public Bag Damage { get; protected set; } // Spells universally use Bag for damage.
         public Element Element { get; protected set; }
 
-        public Spell(string name,Dice damage, Element element)
+        public Spell(string name,Bag damage, Element element)
         {
             Name = name;
             Damage = damage;
@@ -29,16 +29,16 @@ namespace InterC_ForGames
     }
     sealed class GlacialSpike : Spell
     {
-        public GlacialSpike() : base("Ice Spike", new Dice(3,10,0) , Element.Frost) { }
+        public GlacialSpike() : base("Ice Spike", new Bag(new int[] { 4, 4, 5, 5, 6, 6 }) , Element.Frost) { }
     }
 
     sealed class PhoenixFlames : Spell
     {
-        public PhoenixFlames() : base("Phoenix Flames", new Dice(2,8,3), Element.Fire) { }
+        public PhoenixFlames() : base("Phoenix Flames", new Bag(new int[] { 8, 8, 10 }), Element.Fire) { }
     }
 
     sealed class MindSpike : Spell
     {
-        public MindSpike() : base("Mind Spike", new Dice(2,4,0), Element.Shadow) { }
+        public MindSpike() : base("Mind Spike", new Bag(new int[] { 3, 12, 3, 12, 3, 12 }), Element.Shadow) { }
     }
 }

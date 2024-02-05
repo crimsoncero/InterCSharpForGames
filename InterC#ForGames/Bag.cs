@@ -29,9 +29,36 @@ namespace InterC_ForGames
             return randomNumber;
         }
 
+        /// <summary>
+        /// Loads a number into the current bag, does not persist after being used.
+        /// </summary>
+        /// <param name="loadedNumber"></param>
+        public void Load(int loadedNumber)
+        {
+            BagList.Add(loadedNumber);
+        }
+
+        /// <summary>
+        /// Finds the maximum value that can be pulled from the bag. 
+        /// </summary>
+        /// <returns></returns>
+        public int FindMaxValue()
+        {
+            int currentMax = Base[0];
+
+            for(int i = 1; i < Base.Length; i++)
+            {
+                if(currentMax < Base[i])
+                    currentMax = Base[i];
+            }
+
+            return currentMax;
+        }
         private void InitBag()
         {
             BagList = Base.ToList();
         }
+
+
     }
 }
