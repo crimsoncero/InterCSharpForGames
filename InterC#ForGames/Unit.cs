@@ -137,7 +137,7 @@ namespace InterC_ForGames
         {
             int finalDamage = damage - Armor; // Reduces the damage taken by Armor Value
             if (finalDamage < 0) finalDamage = 0; // Doesn't allow negetive damage values.
-            base.ApplyDamage(damage);
+            base.ApplyDamage(finalDamage);
         }
 
 
