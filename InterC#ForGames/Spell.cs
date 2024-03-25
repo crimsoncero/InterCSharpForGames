@@ -39,6 +39,6 @@ namespace InterC_ForGames
 
     sealed class MindSpike : Spell
     {
-        public MindSpike() : base("Mind Spike", new Bag(new int[] { 3, 12, 3, 12, 3, 12 }), Element.Shadow) { }
+        public MindSpike() : base("Mind Spike", new Bag(new int[] { 5, 12, 5, 12, 5, 12 }), Element.Shadow) { }
     }
 }

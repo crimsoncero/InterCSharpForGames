@@ -8,8 +8,8 @@ namespace InterC_ForGames
     {
         private int  _casterDefense = 2;
 
-        public SpellBreaker() : base(damage: new Dice(2, 4, 1), hp: 22, race: Race.Elf, armor: 4, carryingCapacity: 4,
-            hitChance: new Dice(2, 10, 2), defenseRating: new Dice(2,10, 3), speed: 2) { }
+        public SpellBreaker() : base(damage: new Dice(2, 4, 1), hp: 20, race: Race.Elf, armor: 4, carryingCapacity: 4,
+            hitChance: new Dice(2, 10, 0), defenseRating: new Dice(2,10, 0), speed: 1) { }
 
         public override void Attack(Unit defender)
         {
@@ -26,7 +26,7 @@ namespace InterC_ForGames
 
             int defenseRoll = DefenseRating.GetNumber() + (attacker is CasterUnit ? _casterDefense : 0);
             Console.WriteLine($"{attacker} rolled {hitRoll} attack against {this} {defenseRoll} defense");
-            if (hitRoll < defenseRoll)
+            if (hitRoll <= defenseRoll)
             {
                 Console.WriteLine($"{this} defends the attack.");
                 // Do nothing;
@@ -41,7 +41,7 @@ namespace InterC_ForGames
     sealed class Pyromancer : CasterUnit // A hot caster that fires two spells at once.
     {
         public Pyromancer() : base(hp: 13, race: Race.Elf, spell: new PhoenixFlames(), carryingCapacity: 1, 
-            hitChance: new Dice(3,8,0), defenseRating: new Dice(1,20, 0), 2) { }
+            hitChance: new Dice(3,7,-1), defenseRating: new Dice(1,20, 1), 1) { }
 
         public override void Attack(Unit defender)
         {
@@ -66,7 +66,7 @@ namespace InterC_ForGames
 
     sealed class Ranger : MartialUnit // An archer unit that has high damage, and low armor
     {
-        public Ranger() : base(damage: new Dice(2, 10, 2), hp: 18, race: Race.Elf, armor: 1, carryingCapacity: 2, 
-            hitChance: new Dice(2,10,4), defenseRating: new Dice(2,10,0), speed: 3) { }
+        public Ranger() : base(damage: new Dice(2, 10, 0), hp: 15, race: Race.Elf, armor: 1, carryingCapacity: 2, 
+            hitChance: new Dice(2,10,2), defenseRating: new Dice(2,10,0), speed: 2) { }
     }
 }

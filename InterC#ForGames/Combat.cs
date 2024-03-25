@@ -9,7 +9,7 @@ namespace InterC_ForGames
     {
         private const int _weatherBaseDuration = 3; // How long the weather duration is. 
         private const int _weatherChangeChance = 25; // out of 100.
-        public static void Duel(Actor a1, Actor a2)
+        public static int Duel(Actor a1, Actor a2, bool isAuto)
         {
             Weather weather = Weather.Clear;
             int weatherDuration = -1;
@@ -77,32 +77,116 @@ namespace InterC_ForGames
                 {
                     Console.WriteLine("-------------------");
                     Console.WriteLine($"\nIt's a tie!");
-                    return;
+                    return 0;
                 }
                 if (a2Dead)
                 {
                     Console.WriteLine("-------------------");
                     Console.WriteLine($"\n{a1.Name} Won the fight with {a1.Resources} resources!");
-                    return;
+                    return 1;
                 }
                 if (a1Dead)
                 {
                     Console.WriteLine("-------------------");
                     Console.WriteLine($"\n{a2.Name} Won the fight with {a2.Resources} resources!");
-                    return;
+                    return -1;
                 }
 
                 // Advance to next turn.
                 turnNumber++;
 
-                Console.WriteLine("\n Press any button to continue...\n");
-                Console.ReadKey(true);
+                if (!isAuto)
+                {
+                    Console.WriteLine("\n Press any button to continue...\n");
+                    Console.ReadKey(true);
+                }
+                else
+                {
+                    Console.WriteLine();
+                }
+               
             }
            
 
 
         }
 
+        public static int DuelFast(Actor a1, Actor a2, bool isAuto)
+        {
+            Weather weather = Weather.Clear;
+            int weatherDuration = -1;
+            int turnNumber = 1;
+
+            while (true)
+            {
+                // Actors Info Section.
+               
+
+                // Weather handling.
+                if (HasWeatherChanged())
+                {
+                    weather = RandomWeather();
+                    weatherDuration = _weatherBaseDuration;
+                }
+                else if (weatherDuration == 0)
+                {
+                    weather = Weather.Clear; // returns to clear weather.
+                    weatherDuration = -1; //Infinite duration, until weather changes.
+                }
+                else
+                {
+                    weatherDuration--;
+                }
+
+                foreach (Unit u in Enumerable.Concat(a1.Units, a2.Units))
+                {
+                    u.WeatherEffect(weather);
+                }
+
+
+                // Choose a random living unit from each actor.
+                int u1Index = a1.ChooseRandomUnitIndex();
+                int u2Index = a2.ChooseRandomUnitIndex();
+                Unit u1 = a1.Units[u1Index];
+                Unit u2 = a2.Units[u2Index];
+
+
+                // Make the two units fight, order of attacks is determined by speed.
+                if (u1.Speed > u2.Speed)
+                {
+                    Fight((a1, u1Index), (a2, u2Index));
+
+                }
+                else
+                {
+                    Fight((a2, u2Index), (a1, u1Index));
+                }
+
+                // Check if an actor won the fight.
+                bool a1Dead = a1.AreAllDead();
+                bool a2Dead = a2.AreAllDead();
+
+                if (a1Dead && a2Dead)
+                {
+                    return 0;
+                }
+                if (a2Dead)
+                {
+                    return 1;
+                }
+                if (a1Dead)
+                {
+                    return -1;
+                }
+
+                // Advance to next turn.
+                turnNumber++;
+
+            }
+
+
+
+        }
 
         private static int TakeResources(Actor winner, Actor loser, int amount)
         {

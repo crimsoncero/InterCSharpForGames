@@ -58,7 +58,7 @@ namespace InterC_ForGames
             int defenseRoll = DefenseRating.GetNumber();
             Console.WriteLine($"{attacker} rolled {hitRoll} attack against {this} {defenseRoll} defense");
 
-            if (hitRoll < defenseRoll)
+            if (hitRoll <= defenseRoll)
             {
                 Console.WriteLine($"{this} defends the attack.");
                 // Defend action
